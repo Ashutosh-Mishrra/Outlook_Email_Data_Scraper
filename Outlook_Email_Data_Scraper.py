@@ -6,21 +6,24 @@ __version__ = "1.0"
 __maintainer__ = "Ashutosh Mishra"
 __status__ = "Production"
 
+#Importing Packages
 import win32com.client
 import os
 import pandas as pd
 from datetime import datetime as dt
 import time
 from datetime import date
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
+#Making a dictionary : list to store the data#
 output_dict = {'Subject': [],'Sender_Name': [],'Sender_Address': [],'Body': [],'Date': [],'Time': []}
 
 class Email_fetcher:
 
     def main(self,dat):
         input_val = dat
-        outlook = win32com.client.Dispatch("Outlook.Application").GetNameSpace("MAPI")
+        outlook = win32com.client.Dispatch("Outlook.Application").GetNameSpace("MAPI") #using win2com api to get data from outlook#
         Inbox = outlook.GetDefaultFolder(6)
         message = Inbox.Items
 
@@ -54,7 +57,7 @@ if __name__ == "__main__":
     obj = Email_fetcher()
     val = input('Enter the Date in this format: 2020-08-19')
     while val == '':
-        val = input('Enter the Date again in this format: 2020-08-19')
+        val = input('Enter the Date again in this format: 2020-08-19') #Depending on the input date specified data will be provided#
     obj.main(val)
     obj.write_output()
     print(f'Execution time: {(time.time() - start_time) / 60} mins')
